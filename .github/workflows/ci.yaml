@@ -32,5 +32,5 @@ jobs:
         run: echo ${{ env.SOME_VAR }}
       - name: Use secret
         run: |
-          echo ${{ secrets.SAMPLE_SECRET }}
-          echo ${{ env.SOME_SECRET }}
+          echo secret SAMPLE_SECRET = ${{ secrets.SAMPLE_SECRET }}
+          echo env SOME_SECRET = ${{ env.SOME_SECRET }}
