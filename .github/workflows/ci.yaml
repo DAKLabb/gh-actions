@@ -1,0 +1,44 @@
+name: Hello World CI
+
+on:
+  pull_request:
+    branches:
+      - main
+      - staging
+      - dev
+  push:
+    branches:
+      - main
+      - staging
+      - dev
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+env:
+  SOME_VAR: "some value"
+  SOME_SECRET: ${{ secrets.SAMPLE_SECRET }}
+
+jobs:
+  hello-world:
+    name: Hello World
+    runs-on: ubuntu-latest
+    env:
+     SOME_OTHER_VAR: "some other value"
+    steps:
+      - name: Say Hello
+        run: echo "Hello World!"
+      - name: Use var
+        run: echo ${{ env.SOME_VAR }}
+      - name: Use secret
+        run: |
+          echo secret SAMPLE_SECRET = ${{ secrets.SAMPLE_SECRET }}
+          echo env SOME_SECRET = ${{ env.SOME_SECRET }}
+      - name: Use other var
+        run: echo ${{ env.SOME_OTHER_VAR }}
+      - name: Yet another var
+        env:
+          YET_ANOTHER_VAR: "yet another value"
+        run: echo ${{ env.YET_ANOTHER_VAR }}
