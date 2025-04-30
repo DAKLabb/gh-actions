@@ -25,6 +25,8 @@ jobs:
   hello-world:
     name: Hello World
     runs-on: ubuntu-latest
+    env:
+     SOME_OTHER_VAR: "some other value"
     steps:
       - name: Say Hello
         run: echo "Hello World!"
@@ -34,3 +36,9 @@ jobs:
         run: |
           echo secret SAMPLE_SECRET = ${{ secrets.SAMPLE_SECRET }}
           echo env SOME_SECRET = ${{ env.SOME_SECRET }}
+      - name: Use other var
+        run: echo ${{ env.SOME_OTHER_VAR }}
+      - name: Yet another var
+        env:
+          YET_ANOTHER_VAR: "yet another value"
+        run: echo ${{ env.YET_ANOTHER_VAR }}
