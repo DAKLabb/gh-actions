@@ -16,6 +16,11 @@ on:
   schedule:
     - cron: "0 6 * * *"
   workflow_dispatch:
+    inputs:
+        do_step:
+          description: Run optional step
+          type: boolean
+          default: false
 
 env:
   SOME_VAR: "some value"
@@ -42,3 +47,20 @@ jobs:
         env:
           YET_ANOTHER_VAR: "yet another value"
         run: echo ${{ env.YET_ANOTHER_VAR }}
+
+  hello-again:
+    name: Hello Again
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: echo "Hello Again World!"
+
+  conditional-job:
+    needs: hello-world
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: optional step
+        if: ${{ github.event.inputs.do_step }} == 'true'
+        run: echo "input was provided"

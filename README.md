@@ -73,21 +73,41 @@ on:
 ```
 
 ### Manual
-If you are reading this, you may have tried developing GH actoins before and come to the conclusion that they are a pain to test. This is a fact, but one method that can make life a bit easier is to add a [manual trigger](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L18) to your workflow. This allows you to trigger it ad-hoc for testing. It can also be useful for ad-hoc integration tests or other useful workflows discussed in more details in a [later]()s secion.
+If you are reading this, you may have tried developing GH actoins before and come to the conclusion that they are a pain to test. This is a fact, but one method that can make life a bit easier is to add a [manual trigger](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L18-L23) to your workflow. This allows you to trigger it ad-hoc for testing. It can also be useful for ad-hoc integration tests or other useful workflows discussed in more details in a [later]()s secion.
 
 ```yaml
 on:
   workflow_dispatch:
 ```
 
+## Inputs
+
 ## Environment & Secrets
-Within the workflow/actions you can create env variables using `env`. This can be done at the [workflow level](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L20-L22), at the [job level](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L28-L29), or at the [step level](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L42-L43). These can be hardcoded values, but they can also be templated from the action context (more on this [later]()) or from repo secrets (see screenshot below).
+Within the workflow/actions you can create env variables using `env`. This can be done at the [workflow level](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L25-L27), at the [job level](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L33-L34), or at the [step level](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L47-L48). These can be hardcoded values, but they can also be templated from the action context (more on this [later](https://github.com/DAKLabb/gh-actions?tab=readme-ov-file#workflow-context)) or from repo secrets (see screenshot below).
 
 ![Action secrets and variable](imgs/action_secrets_and_variables.png)
 
-
 ## Jobs/Steps
+A workflow is made up of a series of jobs, and jobs are composed of steps. If the `needs` and `if` field of jobs are left blank, they will all run at the same time (as is the case [here](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L30-L56) for jobs `hello-world` and `hello-again`).
+
 ### Conditional Execution
+Sometimes you don't want all your jobs to run at the same time. Perhaps you create assets in one step that you need in a later one, or perhaps you have a long step that you don't run to run on all pushes.
+
+#### Other Jobs
+If you don't want to run a job until and earlier one succeeds, you can use the [needs](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L59) field to only run the job once the named job(s) have succeded. The example below will only run job 3 once jobs 1 and 2 have passed.
+
+```yaml
+job3:
+  needs:
+    - job1
+    - job2
+```
+
+#### Basic Logic
+You may also want to only run a job or step under certain conditions. In the example [here](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L60), "conditional-job" is only run when the workflow is triggered manually. Similarly, the [optional step](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L64-L66) only runs if the [input](https://github.com/DAKLabb/gh-actions?tab=readme-ov-file#inputs) is set to true.
+
+### Using Opensource Steps
+
 
 
 ## Useful info
