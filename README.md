@@ -88,7 +88,7 @@ Within the workflow/actions you can create env variables using `env`. This can b
 ![Action secrets and variable](imgs/action_secrets_and_variables.png)
 
 ## Jobs/Steps
-A workflow is made up of a series of jobs, and jobs are composed of steps. If the `needs` and `if` field of jobs are left blank, they will all run at the same time (as is the case [here](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L30-L56) for jobs `hello-world` and `hello-again`).
+A workflow is made up of a series of jobs, and jobs are composed of steps. If the `needs` and `if` field of jobs are left blank, they will all run at the same time (as is the case [here](https://github.com/DAKLabb/gh-actions/actions/runs/14930654481) for [jobs](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L30-L56) `hello-world` and `hello-again`).
 
 ### Conditional Execution
 Sometimes you don't want all your jobs to run at the same time. Perhaps you create assets in one step that you need in a later one, or perhaps you have a long step that you don't run to run on all pushes.
@@ -104,11 +104,31 @@ job3:
 ```
 
 #### Basic Logic
-You may also want to only run a job or step under certain conditions. In the example [here](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L60), "conditional-job" is only run when the workflow is triggered manually. Similarly, the [optional step](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L64-L66) only runs if the [input](https://github.com/DAKLabb/gh-actions?tab=readme-ov-file#inputs) is set to true.
+You may also want to only run a job or step under certain conditions. In [this](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L60) example, "conditional-job" is only run when the workflow is triggered manually. Similarly, the [optional step](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/ci.yaml?plain=1#L64-L66) only runs if the [input](https://github.com/DAKLabb/gh-actions?tab=readme-ov-file#inputs) is set to true.
+
+```yaml
+conditional-job:
+  needs: hello-world
+  if: ${{ github.event_name == 'workflow_dispatch' }}
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - name: optional step
+      if: ${{ github.event.inputs.dump_context == 'true' }}
+```
 
 ### Using Opensource Steps
+In addion to writing your on GH actions, you can use public open source ones. In the example above, you can see me using the `checkout` action to checkout my project. Below are some that I use frequently, but there are a lot out there. As with any other time you are using someone else's code, be catious, especially if the job takes in any secrets.
 
+| Action                                                     | Description                                                            |
+|------------------------------------------------------------|------------------------------------------------------------------------|
+| [actions/checkout@v4](https://github.com/actions/checkout) | This action checks-out your repository so your workflow can access it. |
+| [actions/setup-python@v5](https://github.com/actions/setup-python) | This is used to setup python, but there are a number of other `setup` actions [available from GitHub](https://github.com/actions?q=setup&type=all&language=&sort=stargazers) as well as other developers. |
+| [upload](https://github.com/actions/upload-artifact) and [download](https://github.com/actions/download-artifact) artifacts | Upload/Download [Actions Artifacts](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) from your Workflow Runs. More information and examples [below](https://github.com/DAKLabb/gh-actions?tab=readme-ov-file#artifacts). |
+| [actions/cache@v4](https://github.com/actions/cache) | This action allows caching dependencies and build outputs to improve workflow execution time. More information and examples [below](https://github.com/DAKLabb/gh-actions?tab=readme-ov-file#caching). |
 
+#### Action versioning
+As you can see in the table above, I am referening specific versoins of those actions (i.e. `actions/checkout@v4`). It is a good idea to periodically review all external actions and migrate to newer versions as they are released.
 
 ## Useful info
 ### Workflow context
@@ -123,6 +143,8 @@ You may also want to only run a job or step under certain conditions. In the exa
 ### Compile
 ### Unit Test
 ### Integration Tests
+## Caching
+## Artifacts
 
 ## Continuous deployment/gitOps
 ### Dev/Test/Prod
@@ -147,6 +169,7 @@ You may also want to only run a job or step under certain conditions. In the exa
 
 # Sharing actions/workflows
 ## Inputs
+## Sharing Secrets
 ## Tagging
 ## Testing
 
