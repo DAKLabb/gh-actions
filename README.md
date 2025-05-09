@@ -92,6 +92,10 @@ Within the workflow/actions you can create env variables using `env`. This can b
 
 ## Useful info
 ### Workflow context
+### Retrying on failure
+#### Workflows
+#### Jobs
+#### Steps
 
 # Example Workflows/Actions
 ## Code Quality
