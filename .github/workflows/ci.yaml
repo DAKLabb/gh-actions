@@ -17,8 +17,8 @@ on:
     - cron: "0 6 * * *"
   workflow_dispatch:
     inputs:
-        do_step:
-          description: Run optional step
+        dump_context:
+          description: Print GH context
           type: boolean
           default: false
 
@@ -62,5 +62,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: optional step
-        if: ${{ github.event.inputs.do_step }} == 'true'
-        run: echo "input was provided"
+        if: ${{ github.event.inputs.dump_context }}
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "Github context printed below"
+          echo "$GITHUB_CONTEXT"
