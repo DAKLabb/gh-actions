@@ -57,12 +57,12 @@ jobs:
 
   conditional-job:
     needs: hello-world
-    if: ${{ github.event_name == 'workflow_dispatch' }}
+    #if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: optional step
-        if: ${{ github.event.inputs.dump_context }}
+        if: ${{ github.event.inputs.dump_context == 'true' }}
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
