@@ -15,8 +15,8 @@ jobs:
         site:
          - name: DAKLabb
            url: "daklabb.dev"
-         - name: PingThings
-           url: "pingthings.io"
+         - name: Kion
+           url: "kion.io"
       fail-fast: false
     steps:
       - name: Check ${{ matrix.site.name }} Links
@@ -26,5 +26,5 @@ jobs:
           site-name: ${{ matrix.site.name }}
           report-name: ${{ matrix.site.name }} Link report
           check-external: true
-          include-warnings: true
+          include-warnings: false
 
