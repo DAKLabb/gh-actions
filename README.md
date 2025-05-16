@@ -143,7 +143,7 @@ Unfortunatly, GitHub doesn't expose an easy mechanism for retrying failling acti
 ## Link Checking
 Nothing makes a website seem more defunct than a bunch of dead links. That said, when you are moving fast, it can be a headache to keep on top of changes, and downwrite impossible to stay on top of links to external sites that end up restructuring. There are already great tools out there to solve this problem, and this uses one of the [linkchecker](https://github.com/linkchecker/linkchecker) to run checks via GH actions in a simple and easy to customize way. More information can be found in the action's repo [here](https://github.com/DAKLabb/check-links).
 
-For a quick example implementation, see the [link-checking.yaml](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/link-checking.yaml) workflow.
+For a quick example implementation, see the [link-checking.yaml](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/link-checking.yaml) workflow running [here](https://github.com/DAKLabb/gh-actions/actions/workflows/link-checking.yaml).
 
 # Note: 
 This repo is a work in progress. I intend to continue adding to this as my schedule allows. Please consider opening issues or messaging me (`david@daklabb.dev`) if there is anything you would like to see me add.
