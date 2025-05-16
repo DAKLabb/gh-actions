@@ -16,7 +16,7 @@ jobs:
          - name: DAKLabb
            url: "daklabb.dev"
          - name: PingThings
-           url: "https://pingthings.io"
+           url: "pingthings.io"
       fail-fast: false
     steps:
       - name: Check ${{ matrix.site.name }} Links
@@ -26,3 +26,4 @@ jobs:
           site-name: ${{ matrix.site.name }}
           report-name: ${{ matrix.site.name }} Link report
           check-external: true
+
