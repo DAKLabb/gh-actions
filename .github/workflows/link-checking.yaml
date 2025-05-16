@@ -26,4 +26,5 @@ jobs:
           site-name: ${{ matrix.site.name }}
           report-name: ${{ matrix.site.name }} Link report
           check-external: true
+          include-warnings: false
 
