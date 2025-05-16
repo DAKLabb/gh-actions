@@ -1,12 +1,9 @@
 name: Check website links
 
 on:
-
   push:
     branches:
       - "**"
-  schedule:
-    - cron: "0 6 * * *"
   workflow_dispatch:
 
 jobs:
@@ -18,9 +15,14 @@ jobs:
         site:
          - name: DAKLabb
            url: "daklabb.dev"
+         - name: PingThings
+           url: "https://pingthings.io"
       fail-fast: false
     steps:
       - name: Check ${{ matrix.site.name }} Links
         uses: DAKLabb/check-links@v0.0.1-alpha
         with:
-          url: daklabb.dev 
+          url: ${{ matrix.site.url }}
+          site-name: ${{ matrix.site.name }}
+          report-name: ${{ matrix.site.name }} Link report
+          check-external: true
