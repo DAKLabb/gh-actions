@@ -14,9 +14,13 @@ jobs:
       matrix:
         site:
          - name: DAKLabb
-           url: "daklabb.dev"
+           url: daklabb.dev
          - name: Kion
-           url: "kion.io"
+           url: kion.io
+         - name: PingThings
+           url: pingthings.io
+         - name: Sayari
+           url: sayari.com
       fail-fast: false
     steps:
       - name: Check ${{ matrix.site.name }} Links
