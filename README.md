@@ -131,49 +131,19 @@ In addion to writing your on GH actions, you can use public open source ones. In
 As you can see in the table above, I am referening specific versoins of those actions (i.e. `actions/checkout@v4`). It is a good idea to periodically review all external actions and migrate to newer versions as they are released.
 
 ## Useful info
-### Workflow context
-### Retrying on failure
-#### Workflows
-#### Jobs
-#### Steps
+### [skip ci]
+When adding a commit and pushing to you may want to skip running CI. Maybe it is too long, maybe it is costly, maybe the commit is a work in progress and is going to fail CI. As documented by [GitHub](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/skipping-workflow-runs) you can easily skip using any of the following commit messages: `[skip ci]`, `[ci skip]`, `[no ci]`, `[skip actions]`, `[actions skip]`
 
 # Example Workflows/Actions
-## Code Quality
-### Lint
-### Compile
-### Unit Test
-### Integration Tests
-## Caching
-## Artifacts
+Below are some example workflows/actions that might be useful. As with anything, this is just one way of doing things.
 
-## Continuous deployment/gitOps
-### Dev/Test/Prod
+## Retry
+Unfortunatly, GitHub doesn't expose an easy mechanism for retrying failling actions/workflows/jobs. After encoutering this issue recnetly, I decided to document the solution I went with [here](https://github.com/DAKLabb/retry).
 
-## DevEx/QOL
-### Dependabot Auto-approve/auto-merge
-### Periodic updates (think sayari fern spec)
-### Slack integration
+## Link Checking
+Nothing makes a website seem more defunct than a bunch of dead links. That said, when you are moving fast, it can be a headache to keep on top of changes, and downwrite impossible to stay on top of links to external sites that end up restructuring. There are already great tools out there to solve this problem, and this uses one of the [linkchecker](https://github.com/linkchecker/linkchecker) to run checks via GH actions in a simple and easy to customize way. More information can be found in the action's repo [here](https://github.com/DAKLabb/check-links).
 
+For a quick example implementation, see the [link-checking.yaml](https://github.com/DAKLabb/gh-actions/blob/main/.github/workflows/link-checking.yaml) workflow.
 
-## Sample Implementation
-### DAKLabb Website
-### Fern?
-
-# Related GH settings
-## Branch protection rules
-### Checks
-### Convos
-### ...
-
-## Dependabot
-
-# Sharing actions/workflows
-## Inputs
-## Sharing Secrets
-## Tagging
-## Testing
-
-
-
-# Frequenty Asked Questions
-
+# Note: 
+This repo is a work in progress. I intend to continue adding to this as my schedule allows. Please consider opening issues or messaging me (`david@daklabb.dev`) if there is anything you would like to see me add.
