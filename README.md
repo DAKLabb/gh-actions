@@ -131,6 +131,8 @@ In addion to writing your on GH actions, you can use public open source ones. In
 As you can see in the table above, I am referening specific versoins of those actions (i.e. `actions/checkout@v4`). It is a good idea to periodically review all external actions and migrate to newer versions as they are released.
 
 ## Useful info
+### [skip ci]
+https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/skipping-workflow-runs
 ### Workflow context
 ### Retrying on failure
 #### Workflows
