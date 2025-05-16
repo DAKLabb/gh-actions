@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Check ${{ matrix.site.name }} Links
-        uses: DAKLabb/check-links@v0.0.1-alpha
+        uses: DAKLabb/check-links@main
         with:
           url: ${{ matrix.site.url }}
           site-name: ${{ matrix.site.name }}
